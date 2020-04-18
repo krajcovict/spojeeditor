@@ -1,33 +1,76 @@
 #!/bin/bash
 
 # Vymazat subor, do ktoreho chceme ulozit vystup, ak uz existuje.
-rm ZasSpoje_edited.txt
+rm -f ZasSpoje_edited.txt
 
-# Prechadzat riadok po riadku (Tento skript trva velmi dlllllllllho).
+# Prechadzat riadok po riadku.
 while read line; do 
 
 	#Nacitat riadok do pola. Oddelovac prvkov pola je ",". Koniec riadku.
 	line_array=($(echo $line | tr "," "\n"));
 
 	# Zobrazit priebezny stav do terminalu.
-	echo ${line_array[0]}
-	echo ${line_array[1]}
+	printf "\n${line_array[0]}" 
+	printf "${line_array[1]}"
 
   # MANIPULACIA S NACITANYM POLOM
 
-	# Ak je linka "207106" a nastupiste "1", tak nastupiste prepis na "2".
-	if [[ ${line_array[0]} == "\"207106\"" && ${line_array[4]} == "\"1\"" ]]; then
+	# Ak je linka "207103" a nastupiste "1", tak nastupiste prepis na "2".
+	if [[ ${line_array[0]} == "\"207103\"" && ${line_array[4]} == "\"1\"" ]]; then
 		line_array[4]="\"2\""
+		printf " Menim nastupiste na ${line_array[4]}"
 
-	# Elseak je linka "207106" a nastupiste "2", tak nastupiste prepis na "1".
+	# je linka "207103" a nastupiste "2", tak nastupiste prepis na "1".
+	elif [[ ${line_array[0]} == "\"207103\"" && ${line_array[4]} == "\"2\"" ]]; then
+		line_array[4]="\"1\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
+	# je linka "207105" a nastupiste "1", tak nastupiste prepis na "2".
+	elif [[ ${line_array[0]} == "\"207105\"" && ${line_array[4]} == "\"1\"" ]]; then
+		line_array[4]="\"2\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
+	# je linka "207105" a nastupiste "2", tak nastupiste prepis na "1".
+	elif [[ ${line_array[0]} == "\"207105\"" && ${line_array[4]} == "\"2\"" ]]; then
+		line_array[4]="\"1\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
+	# je linka "207106" a nastupiste "1", tak nastupiste prepis na "2".
+	elif [[ ${line_array[0]} == "\"207106\"" && ${line_array[4]} == "\"1\"" ]]; then
+		line_array[4]="\"2\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
+	# je linka "207106" a nastupiste "2", tak nastupiste prepis na "1".
 	elif [[ ${line_array[0]} == "\"207106\"" && ${line_array[4]} == "\"2\"" ]]; then
 		line_array[4]="\"1\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
+	# je linka "207113" a nastupiste "1", tak nastupiste prepis na "2".
+	elif [[ ${line_array[0]} == "\"207113\"" && ${line_array[4]} == "\"1\"" ]]; then
+		line_array[4]="\"2\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
+	# je linka "207113" a nastupiste "2", tak nastupiste prepis na "1".
+	elif [[ ${line_array[0]} == "\"207113\"" && ${line_array[4]} == "\"2\"" ]]; then
+		line_array[4]="\"1\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
+	# je linka "207116" a nastupiste "1", tak nastupiste prepis na "2".
+	elif [[ ${line_array[0]} == "\"207116\"" && ${line_array[4]} == "\"1\"" ]]; then
+		line_array[4]="\"2\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
+	# je linka "207116" a nastupiste "2", tak nastupiste prepis na "1".
+	elif [[ ${line_array[0]} == "\"207116\"" && ${line_array[4]} == "\"2\"" ]]; then
+		line_array[4]="\"1\""
+		printf " Menim nastupiste na ${line_array[4]}"
+
 	fi
 
   # KONIEC MANIPULACIE S NACITANYM POLOM
 
 	# Budem pocitat ukladanie prvkov pola, lebo nechcem, aby som vlozil ciarku aj na konci riadku.
-	counter=$0;
+	counter=0;
 	
 	#Pre kazdy prvok pola
 	for i in "${line_array[@]}"
@@ -38,15 +81,10 @@ while read line; do
 			# Vytlac ciarku - okrem pripadu, ked sme uz na konci riadku. Na konci riadku ciarku nechceme.
 			if [[ $counter != 15 ]];
 			then
-				printf "," >> ZasSpoje_edited.txt
-				
+				printf "," >> ZasSpoje_edited.txt			
 			fi	
-
-
 		done
-
-   
 
 done < ZasSpoje.txt # Vstupny subor, ktory mame vo folderi pripraveny.
 
-
+printf "\nHotovo. Dakujem za spolupracu.\n"
